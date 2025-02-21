@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Today</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(to right, #ff512f, #dd2476);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            width: 90%;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .news-section {
+            background: white;
+            padding: 30px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            transition: transform 0.3s;
+        }
+        .news-section:hover {
+            transform: translateY(-5px);
+        }
+        .news-section img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #222;
+            border-bottom: 3px solid #ff512f;
+            padding-bottom: 5px;
+            font-size: 24px;
+        }
+        p {
+            font-size: 20px;
+            line-height: 1.8;
+        }
+        .news-content {
+            display: none;
+            padding-top: 20px;
+        }
+        input[type="radio"] {
+            display: none;
+        }
+        input[type="radio"]:checked + .news-content {
+            display: block;
+        }
+        label {
+            display: block;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 22px;
+            padding: 10px 0;
+            color: #ff512f;
+            transition: color 0.3s;
+        }
+        label:hover {
+            color: #dd2476;
+        }
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>News Today</h1>
+    <p>Your Daily Dose of Updates & Headlines</p>
+</header>
+
+<div class="container">
+    <div class="news-section">
+        <label for="news1">Apple Expands Manufacturing in India</label>
+        <input type="radio" id="news1" name="news">
+        <div class="news-content">
+            <img src="news1.jpeg" alt="Global Summit">
+            <p>Apple is rapidly expanding its manufacturing base in India, contributing to the country's export growth. The move is part of Apple's strategy to diversify production beyond China. This expansion is expected to create thousands of jobs and boost local suppliers. Additionally, Apple plans to open more retail stores in India to strengthen its market presence. The Indian government has welcomed this move, offering incentives to attract more foreign investment in the tech sector. Industry experts believe this shift will enhance India's reputation as a global manufacturing hub.</p>
+        </div>
+    </div>
+    
+    <div class="news-section">
+        <label for="news2">Air India Seals Historic Aircraft Deal</label>
+        <input type="radio" id="news2" name="news">
+        <div class="news-content">
+            <img src="news2.jpeg" alt="Air India Deal">
+            <p>Air India has confirmed the purchase of 470 new aircraft from Airbus and Boeing, marking a historic transformation in India's aviation sector. This deal is expected to improve the airline's fleet and enhance passenger experience. The acquisition aligns with Air India's vision of modernizing its services and increasing global competitiveness. Aviation analysts predict that this expansion will lead to reduced ticket prices and more flight options for passengers. The deal is also seen as a strategic move to compete with global carriers and position India as a leading aviation hub.</p>
+        </div>
+    </div>
+    
+    <div class="news-section">
+        <label for="news3">Congress Releases First List of Candidates</label>
+        <input type="radio" id="news3" name="news">
+        <div class="news-content">
+            <img src="news3.jpg" alt="Congress Candidates">
+            <p>The Congress party has announced its initial list of candidates for the upcoming elections, setting the stage for a heated political contest. The party aims to strengthen its presence in key regions by fielding experienced and young leaders. Political analysts suggest that this move reflects Congress's strategy to attract a broader voter base. Campaigns have already begun, with leaders focusing on issues like economic reforms, social policies, and governance. The elections are expected to witness high voter turnout and intense debates on national issues.</p>
+        </div>
+    </div>
+    
+    <div class="news-section">
+        <label for="news4">Government Announces LPG Price Cut</label>
+        <input type="radio" id="news4" name="news">
+        <div class="news-content">
+            <img src="news4.jpeg" alt="LPG Price Cut">
+            <p>In a move to reduce household expenses, the government has slashed LPG prices by Rs 100 per cylinder, benefiting millions of consumers. This initiative aims to make essential commodities more affordable. Officials stated that the price cut is part of a broader economic relief package designed to support lower-income families. Industry experts believe this decision will positively impact the inflation rate and ease the financial burden on consumers. Many citizens have welcomed the move, praising the government for prioritizing affordability and economic stability.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 News Today. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
