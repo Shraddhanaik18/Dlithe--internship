@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Today</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header, footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .news-section {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .news-section:last-child {
+            border-bottom: none;
+        }
+        .news-title {
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #333;
+        }
+        .news-meta {
+            font-size: 14px;
+            color: #666;
+        }
+        .news-content {
+            display: none;
+            font-size: 16px;
+            padding-top: 10px;
+        }
+        .news-section input {
+            display: none;
+        }
+        .news-section input:checked + .news-content {
+            display: block;
+        }
+        .read-more {
+            display: block;
+            text-align: center;
+            margin: 20px auto;
+            padding: 10px;
+            width: 150px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .read-more:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>News Today</h1>
+</header>
+
+<div class="container">
+    <div class="news-section">
+        <label for="news1" class="news-title">Apple Expands Manufacturing in India</label>
+        <p class="news-meta">Category: Business | Published: Feb 21, 2025</p>
+        <input type="radio" id="news1" name="news">
+        <div class="news-content">
+            <p>Apple is increasing its production in India as part of its "Make in India" initiative...</p>
+        </div>
+    </div>
+    <div class="news-section">
+        <label for="news2" class="news-title">Air India Finalizes Multi-Billion Dollar Aircraft Deal</label>
+        <p class="news-meta">Category: Aviation | Published: Sep 12, 2024</p>
+        <input type="radio" id="news2" name="news">
+        <div class="news-content">
+            <p>Air India has signed agreements to expand its fleet with new Boeing and Airbus aircraft...</p>
+        </div>
+    </div>
+    <div class="news-section">
+        <label for="news3" class="news-title">Stock Market Hits Record High</label>
+        <p class="news-meta">Category: Finance | Published: May 23, 2024</p>
+        <input type="radio" id="news3" name="news">
+        <div class="news-content">
+            <p>The stock market reached a new all-time high due to strong economic growth...</p>
+        </div>
+    </div>
+</div>
+
+<a href="reg.html" class="read-more">Read More</a>
+
+<footer>
+    <p>&copy; 2025 News Today. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
