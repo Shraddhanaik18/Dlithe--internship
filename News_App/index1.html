@@ -5,110 +5,200 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Today</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --text-color: #333;
+            --light-gray: #f8f9fa;
+            --border-radius: 8px;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            box-sizing: border-box;
         }
-        header, footer {
-            background: #333;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            text-align: center;
-            padding: 15px 0;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
+        header h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
         .container {
             width: 90%;
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
+
         .news-section {
-            border-bottom: 1px solid #ddd;
-            padding: 15px 0;
+            background: white;
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
         }
-        .news-section:last-child {
-            border-bottom: none;
+
+        .news-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .news-title {
-            font-size: 18px;
-            font-weight: bold;
+            display: block;
+            padding: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
             cursor: pointer;
-            color: #333;
+            position: relative;
+            transition: background-color 0.3s ease;
         }
+
+        .news-title:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
         .news-meta {
-            font-size: 14px;
+            padding: 0 1.5rem;
+            font-size: 0.9rem;
             color: #666;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
+
+        .news-meta::before {
+            content: "•";
+            color: var(--secondary-color);
+        }
+
         .news-content {
-            display: none;
-            font-size: 16px;
-            padding-top: 10px;
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            font-size: 1rem;
+            line-height: 1.8;
         }
+
         .news-section input {
             display: none;
         }
+
         .news-section input:checked + .news-content {
             display: block;
         }
+
         .read-more {
-            display: block;
-            text-align: center;
-            margin: 20px auto;
-            padding: 10px;
-            width: 150px;
-            background: #333;
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--secondary-color);
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+            margin: 2rem 0;
         }
+
         .read-more:hover {
-            background: #555;
+            background: #2980b9;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                width: 95%;
+                padding: 0 10px;
+            }
+
+            .news-title {
+                font-size: 1.1rem;
+                padding: 1rem;
+            }
+
+            .news-content {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>News Today</h1>
+    </header>
+    
+    <div class="container">
+        <div class="news-section">
+            <label for="news1" class="news-title">Apple Expands Manufacturing in India</label>
+            <p class="news-meta">Category: Business | Published: Feb 21, 2025</p>
+            <input type="radio" id="news1" name="news">
+            <div class="news-content">
+                <p>Apple is increasing its production in India as part of its "Make in India" initiative...</p>
+            </div>
+        </div>
 
-<header>
-    <h1>News Today</h1>
-</header>
+        <div class="news-section">
+            <label for="news2" class="news-title">Air India Finalizes Multi-Billion Dollar Aircraft Deal</label>
+            <p class="news-meta">Category: Aviation | Published: Sep 12, 2024</p>
+            <input type="radio" id="news2" name="news">
+            <div class="news-content">
+                <p>Air India has signed agreements to expand its fleet with new Boeing and Airbus aircraft...</p>
+            </div>
+        </div>
 
-<div class="container">
-    <div class="news-section">
-        <label for="news1" class="news-title">Apple Expands Manufacturing in India</label>
-        <p class="news-meta">Category: Business | Published: Feb 21, 2025</p>
-        <input type="radio" id="news1" name="news">
-        <div class="news-content">
-            <p>Apple is increasing its production in India as part of its "Make in India" initiative...</p>
+        <div class="news-section">
+            <label for="news3" class="news-title">Stock Market Hits Record High</label>
+            <p class="news-meta">Category: Finance | Published: May 23, 2024</p>
+            <input type="radio" id="news3" name="news">
+            <div class="news-content">
+                <p>The stock market reached a new all-time high due to strong economic growth...</p>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <a href="reg.html" class="read-more">Read More</a>
         </div>
     </div>
-    <div class="news-section">
-        <label for="news2" class="news-title">Air India Finalizes Multi-Billion Dollar Aircraft Deal</label>
-        <p class="news-meta">Category: Aviation | Published: Sep 12, 2024</p>
-        <input type="radio" id="news2" name="news">
-        <div class="news-content">
-            <p>Air India has signed agreements to expand its fleet with new Boeing and Airbus aircraft...</p>
-        </div>
-    </div>
-    <div class="news-section">
-        <label for="news3" class="news-title">Stock Market Hits Record High</label>
-        <p class="news-meta">Category: Finance | Published: May 23, 2024</p>
-        <input type="radio" id="news3" name="news">
-        <div class="news-content">
-            <p>The stock market reached a new all-time high due to strong economic growth...</p>
-        </div>
-    </div>
-</div>
 
-<a href="reg.html" class="read-more">Read More</a>
-
-<footer>
-    <p>&copy; 2025 News Today. All rights reserved.</p>
-</footer>
-
+    <footer>
+        <p>&copy; 2025 News Today. All rights reserved.</p>
+    </footer>
 </body>
 </html>
