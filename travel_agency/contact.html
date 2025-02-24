@@ -5,60 +5,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Explore World</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-bg: linear-gradient(135deg, #1a1a2e, #16213e);
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --accent-color: #4d7cfe;
+            --hover-color: #3d63cc;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #1e1e2f, #3a3a60);
-            color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: var(--primary-bg);
+            color: var(--text-primary);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
         }
+
         .container {
-            width: 40%;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
-            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(45deg, #4d7cfe, #62d9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            position: absolute;
+            left: 16px;
+            top: 0;
+            padding: 0 5px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transform: translateY(-50%);
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
         input, textarea {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
         }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(77, 124, 254, 0.2);
+        }
+
         input::placeholder, textarea::placeholder {
-            color: #ddd;
+            color: rgba(255, 255, 255, 0.3);
         }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
         button {
             width: 100%;
-            padding: 12px;
-            background: #ffcc00;
-            color: #121212;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #ff5733;
+            padding: 16px;
+            background: var(--accent-color);
             color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
         }
-        a {
-            color: #ffcc00;
+
+        button:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(77, 124, 254, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--accent-color);
             text-decoration: none;
-            font-weight: bold;
-            display: block;
-            margin-top: 15px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .back-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .back-link:hover::after {
+            width: 100%;
+        }
+
+        .back-link:hover {
+            color: #62d9ff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Input focus animation */
+        .form-group input:focus ~ label,
+        .form-group textarea:focus ~ label {
+            color: var(--accent-color);
+            transform: translateY(-50%) scale(0.9);
+        }
+
+        /* Success animation */
+        button.success {
+            background: #00c853;
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.98); }
+            100% { transform: scale(1); }
+        }
+
+        button.loading {
+            animation: pulse 1.5s infinite;
+            pointer-events: none;
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -66,12 +199,23 @@
     <div class="container">
         <h2>Contact Us</h2>
         <form action="index2.html" method="get">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit">Submit</button>
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                <label for="name">Name</label>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <label for="email">Email</label>
+            </div>
+            <div class="form-group">
+                <textarea id="message" name="message" placeholder="Type your message here..." rows="5" required></textarea>
+                <label for="message">Message</label>
+            </div>
+            <button type="submit">Send Message</button>
         </form>
-        <a href="index2.html">Back to Home</a>
+        <div style="text-align: center;">
+            <a href="index2.html" class="back-link">Back to Home</a>
+        </div>
     </div>
 </body>
 </html>
