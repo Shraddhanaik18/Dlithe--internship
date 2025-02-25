@@ -135,12 +135,29 @@
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
-        .profile-pic {
+        .profile-pic-container {
           width: 200px;
           height: 200px;
           border-radius: 50%;
-          object-fit: cover;
           border: 5px solid var(--accent-color);
+          overflow: hidden;
+          background-color: #e0e0e0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        
+        .profile-pic {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        
+        .profile-pic-placeholder {
+          font-size: 1rem;
+          color: #777;
+          text-align: center;
+          padding: 10px;
         }
         
         .intro h2 {
@@ -248,49 +265,97 @@
           transform: translateY(-3px);
         }
         
-        /* Contact Section */
-        .cta {
-          background-color: var(--primary-color);
-          color: white;
-          padding: 50px;
-          border-radius: 10px;
-          text-align: center;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .cta h2 {
-          color: white;
-          margin-bottom: 20px;
-        }
-        
-        .cta h2::after {
+        /* Contact CTA Section */
+        .contact-cta {
           background-color: white;
-          left: 50%;
-          transform: translateX(-50%);
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+          text-align: center;
         }
         
-        .cta p {
-          margin-bottom: 20px;
+        .contact-cta p {
+          margin-bottom: 25px;
           font-size: 1.1rem;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
         }
         
         .btn {
           display: inline-block;
-          background-color: white;
-          color: var(--primary-color);
+          background-color: var(--primary-color);
+          color: white;
           padding: 12px 30px;
           border-radius: 30px;
           text-decoration: none;
           font-weight: 600;
           transition: var(--transition);
-          margin-top: 15px;
+          border: none;
+          cursor: pointer;
         }
         
         .btn:hover {
-          background-color: var(--accent-color);
-          color: var(--secondary-color);
+          background-color: var(--secondary-color);
           transform: translateY(-3px);
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Contact Page Styles */
+        .contact-section {
+          background-color: white;
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+          margin-bottom: 40px;
+        }
+        
+        .contact-info {
+          margin-bottom: 30px;
+        }
+        
+        .contact-info p {
+          margin-bottom: 10px;
+          font-size: 1.1rem;
+        }
+        
+        /* Contact Form */
+        #contact-form {
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        
+        .form-group {
+          margin-bottom: 20px;
+        }
+        
+        .form-group label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 500;
+          color: var(--secondary-color);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid var(--light-gray);
+          border-radius: 5px;
+          background-color: white;
+          transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+          border-color: var(--primary-color);
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(74, 110, 181, 0.2);
+        }
+        
+        .form-group textarea {
+          min-height: 150px;
+          resize: vertical;
         }
         
         /* Quick Links */
@@ -321,6 +386,19 @@
         .quick-links img {
           width: 24px;
           margin-right: 10px;
+        }
+        
+        .quick-links .icon-placeholder {
+          width: 24px;
+          height: 24px;
+          background-color: #e0e0e0;
+          margin-right: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 12px;
+          color: #777;
+          border-radius: 3px;
         }
         
         /* Footer */
@@ -363,7 +441,7 @@
             justify-content: center;
           }
           
-          .profile-pic {
+          .profile-pic-container {
             width: 150px;
             height: 150px;
           }
@@ -381,11 +459,11 @@
             <h1>Welcome to My Portfolio</h1>
             <nav>
                 <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#education">Education</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#skills">Skills</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -394,7 +472,11 @@
     <main class="container">
         <!-- About Me Section -->
         <section class="intro" id="about">
-            <img src="photo.jpg" alt="Profile Picture" class="profile-pic">
+            <div class="profile-pic-container">
+                <!-- If the image exists, it will be displayed. Otherwise, the placeholder will show. -->
+                <img src="photo.jpg" alt="Profile Picture" class="profile-pic" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="profile-pic-placeholder" style="display: none;">Profile Photo</div>
+            </div>
             <div>
                 <h2>About Me</h2>
                 <p>Hello! I am a passionate web developer with expertise in front-end and back-end development. This is my portfolio showcasing my education and projects.</p>
@@ -456,25 +538,32 @@
             </ul>
         </section>
 
-        <!-- Contact Section -->
-        <section class="cta" id="contact">
-            <h2>Let's Work Together!</h2>
-            <p>If you're looking for a dedicated web developer, feel free to get in touch.</p>
-            <p>Email: shraddhajnaik@gmail.com</p>
-            
+        <!-- Contact CTA Section (replacing previous contact section) -->
+        <section class="contact-cta">
+            <h2>Get in Touch</h2>
+            <p>If you're looking for a dedicated web developer, feel free to reach out through my contact page.</p>
             <a href="contact.html" class="btn">Contact Me</a>
         </section>
 
         <!-- Quick Links Below Contact Section -->
         <div class="quick-links">
             <a href="https://www.linkedin.com/in/shraddha-naik-717763228" target="_blank">
-                <img src="linkedin-icon.jpeg" alt="LinkedIn"> LinkedIn
+                <!-- Fallback for LinkedIn icon -->
+                <img src="linkedin-icon.jpeg" alt="LinkedIn" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="icon-placeholder" style="display: none;">Li</div>
+                LinkedIn
             </a>
             <a href="https://github.com" target="_blank">
-                <img src="Github-icon.jpeg" alt="GitHub"> GitHub
+                <!-- Fallback for GitHub icon -->
+                <img src="Github-icon.jpeg" alt="GitHub" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="icon-placeholder" style="display: none;">Git</div>
+                GitHub
             </a>
             <a href="#" class="resume-link">
-                <img src="resume-icon.jpeg" alt="Resume"> Resume
+                <!-- Fallback for Resume icon -->
+                <img src="resume-icon.jpeg" alt="Resume" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="icon-placeholder" style="display: none;">CV</div>
+                Resume
             </a>
         </div>
     </main>
