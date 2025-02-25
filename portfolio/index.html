@@ -5,26 +5,393 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal Portfolio">
     <meta name="keywords" content="Portfolio, Web Developer, Projects, Education">
-    <meta name="author" content="Your Name">
+    <meta name="author" content="Shraddha J Naik">
     <title>My Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+          --primary-color: #4a6eb5;
+          --secondary-color: #364f6b;
+          --accent-color: #43dde6;
+          --background-color: #f7f9fc;
+          --text-color: #333;
+          --light-gray: #eaeaea;
+          --transition: all 0.3s ease;
+        }
+        
+        body {
+          background-color: var(--background-color);
+          color: var(--text-color);
+          line-height: 1.6;
+        }
+        
+        /* Container */
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+        }
+        
+        /* Header and Navigation */
+        header {
+          background-color: white;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          padding: 20px 0;
+        }
+        
+        header .container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        
+        header h1 {
+          color: var(--primary-color);
+          font-size: 1.8rem;
+          font-weight: 700;
+        }
+        
+        nav ul {
+          display: flex;
+          list-style: none;
+          gap: 30px;
+        }
+        
+        nav a {
+          text-decoration: none;
+          color: var(--secondary-color);
+          font-weight: 500;
+          transition: var(--transition);
+          position: relative;
+          padding-bottom: 5px;
+        }
+        
+        nav a:hover {
+          color: var(--primary-color);
+        }
+        
+        nav a::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: var(--accent-color);
+          transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+          width: 100%;
+        }
+        
+        /* Main Content */
+        main {
+          padding: 60px 0;
+        }
+        
+        section {
+          margin-bottom: 80px;
+        }
+        
+        /* Section Headings */
+        section h2 {
+          font-size: 2.2rem;
+          color: var(--secondary-color);
+          margin-bottom: 30px;
+          position: relative;
+          display: inline-block;
+        }
+        
+        section h2::after {
+          content: '';
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+          width: 60%;
+          height: 3px;
+          background-color: var(--accent-color);
+        }
+        
+        /* About Section */
+        .intro {
+          display: flex;
+          align-items: center;
+          gap: 50px;
+          background-color: white;
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .profile-pic {
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 5px solid var(--accent-color);
+        }
+        
+        .intro h2 {
+          margin-bottom: 20px;
+        }
+        
+        .intro p {
+          font-size: 1.1rem;
+          max-width: 600px;
+        }
+        
+        /* Education Section */
+        .education {
+          background-color: white;
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .education h3 {
+          color: var(--primary-color);
+          margin-top: 25px;
+          margin-bottom: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        
+        .year {
+          color: var(--secondary-color);
+          font-size: 0.9rem;
+          font-weight: normal;
+        }
+        
+        .education p {
+          margin-bottom: 5px;
+        }
+        
+        .education strong {
+          color: var(--primary-color);
+        }
+        
+        /* Projects Section */
+        .projects {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        
+        .project {
+          background-color: white;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+          transition: var(--transition);
+        }
+        
+        .project:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project h3 {
+          color: var(--primary-color);
+          margin-bottom: 15px;
+          border-bottom: 2px solid var(--light-gray);
+          padding-bottom: 10px;
+        }
+        
+        .project ul {
+          margin-left: 20px;
+          margin-top: 15px;
+        }
+        
+        .project li {
+          margin-bottom: 10px;
+        }
+        
+        /* Skills Section */
+        .skills {
+          background-color: white;
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .skills ul {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 15px;
+          list-style: none;
+        }
+        
+        .skills li {
+          background-color: var(--primary-color);
+          color: white;
+          padding: 10px 25px;
+          border-radius: 30px;
+          font-weight: 500;
+          transition: var(--transition);
+        }
+        
+        .skills li:hover {
+          background-color: var(--secondary-color);
+          transform: translateY(-3px);
+        }
+        
+        /* Contact Section */
+        .cta {
+          background-color: var(--primary-color);
+          color: white;
+          padding: 50px;
+          border-radius: 10px;
+          text-align: center;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta h2 {
+          color: white;
+          margin-bottom: 20px;
+        }
+        
+        .cta h2::after {
+          background-color: white;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        
+        .cta p {
+          margin-bottom: 20px;
+          font-size: 1.1rem;
+        }
+        
+        .btn {
+          display: inline-block;
+          background-color: white;
+          color: var(--primary-color);
+          padding: 12px 30px;
+          border-radius: 30px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: var(--transition);
+          margin-top: 15px;
+        }
+        
+        .btn:hover {
+          background-color: var(--accent-color);
+          color: var(--secondary-color);
+          transform: translateY(-3px);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Quick Links */
+        .quick-links {
+          display: flex;
+          justify-content: center;
+          gap: 30px;
+          margin-top: 40px;
+        }
+        
+        .quick-links a {
+          display: flex;
+          align-items: center;
+          color: var(--secondary-color);
+          text-decoration: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          transition: var(--transition);
+          background-color: white;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .quick-links a:hover {
+          background-color: var(--light-gray);
+          transform: translateY(-3px);
+        }
+        
+        .quick-links img {
+          width: 24px;
+          margin-right: 10px;
+        }
+        
+        /* Footer */
+        footer {
+          background-color: var(--secondary-color);
+          color: white;
+          padding: 20px 0;
+          text-align: center;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+          nav ul {
+            gap: 15px;
+          }
+          
+          .intro {
+            flex-direction: column;
+            text-align: center;
+          }
+          
+          .intro h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+          }
+          
+          .project {
+            padding: 20px;
+          }
+        }
+        
+        @media (max-width: 600px) {
+          header .container {
+            flex-direction: column;
+            gap: 15px;
+          }
+          
+          nav ul {
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          
+          .profile-pic {
+            width: 150px;
+            height: 150px;
+          }
+          
+          .quick-links {
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to My Portfolio</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <h1>Welcome to My Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
-    <main>
+    <main class="container">
         <!-- About Me Section -->
         <section class="intro" id="about">
             <img src="photo.jpg" alt="Profile Picture" class="profile-pic">
@@ -51,35 +418,33 @@
         </section>
 
         <!-- Projects Section -->
-        <section class="projects" id="projects">
+        <section id="projects">
             <h2>Projects</h2>
-            <div class="project">
-                <h3>QuickBite</h3>
-                <ul>
-    <li>Designed and implemented a smart food management system incorporating real-time crowd estimation to optimize meal availability.</li>
-    <li>Integrated pre-order functionality with live stock updates, ensuring seamless ordering and reduced food waste.</li>
-    <li>Developed an automated notification system to provide real-time updates on meal status and availability.</li>
-    <li>Implemented a real-time feedback loop to enhance service quality and customer satisfaction.</li>
-    <li>Created a scalable and flexible admin interface for efficient stock, menu, and notification management.</li>
-</ul>
-
-            </div>
-            <div class="project">
-                <h3> A PDF Bot :</h3>
-                <ul>
-                   
-    <li>Developed an automated PDF processing bot using Python, Flask, and MySQL.</li>
-    <li>Implemented features for document conversion, merging, splitting, and text extraction.</li>
-    <li>Integrated a user-friendly interface with drag-and-drop uploads and real-time processing.</li>
-    <li>Optimized for performance and scalability, ensuring secure and efficient document handling.</li>
-
-
-                </ul>
+            <div class="projects">
+                <div class="project">
+                    <h3>QuickBite</h3>
+                    <ul>
+                        <li>Designed and implemented a smart food management system incorporating real-time crowd estimation to optimize meal availability.</li>
+                        <li>Integrated pre-order functionality with live stock updates, ensuring seamless ordering and reduced food waste.</li>
+                        <li>Developed an automated notification system to provide real-time updates on meal status and availability.</li>
+                        <li>Implemented a real-time feedback loop to enhance service quality and customer satisfaction.</li>
+                        <li>Created a scalable and flexible admin interface for efficient stock, menu, and notification management.</li>
+                    </ul>
+                </div>
+                <div class="project">
+                    <h3>PDF Bot</h3>
+                    <ul>
+                        <li>Developed an automated PDF processing bot using Python, Flask, and MySQL.</li>
+                        <li>Implemented features for document conversion, merging, splitting, and text extraction.</li>
+                        <li>Integrated a user-friendly interface with drag-and-drop uploads and real-time processing.</li>
+                        <li>Optimized for performance and scalability, ensuring secure and efficient document handling.</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-          <!-- Skills Section -->
-          <section class="skills" id="skills">
+        <!-- Skills Section -->
+        <section class="skills" id="skills">
             <h2>Skills</h2>
             <ul>
                 <li>HTML</li>
@@ -108,13 +473,14 @@
             <a href="https://github.com" target="_blank">
                 <img src="Github-icon.jpeg" alt="GitHub"> GitHub
             </a>
+            <a href="#" class="resume-link">
                 <img src="resume-icon.jpeg" alt="Resume"> Resume
             </a>
         </div>
     </main>
     
     <footer>
-        <p>&copy; 2025 Shraddha J Naik . All rights reserved.</p>
+        <p>&copy; 2025 Shraddha J Naik. All rights reserved.</p>
     </footer>
 </body>
 </html>
