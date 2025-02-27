@@ -101,6 +101,150 @@
             margin-top: 50px;
             box-shadow: 0px -5px 15px rgba(255, 117, 140, 0.3);
         }
+        /* Filter styles */
+        .filters {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        .filter-group h3 {
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filter-checkbox {
+            display: none;
+        }
+        .filter-label {
+            display: inline-block;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .filter-checkbox:checked + .filter-label {
+            background: #ffcc00;
+            color: #121212;
+        }
+        .sort-options {
+            margin: 20px 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .sort-options select {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ffcc00;
+            border-radius: 5px;
+            color: white;
+            margin-left: 10px;
+        }
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .destination-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 204, 0, 0.3);
+        }
+        .destination-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .destination-info {
+            padding: 15px;
+            text-align: left;
+        }
+        .destination-name {
+            font-size: 20px;
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+        .destination-details {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .price {
+            font-size: 22px;
+            color: #ff758c;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .view-details {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #ffcc00;
+            color: #121212;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .view-details:hover {
+            background-color: #ff5733;
+            color: white;
+        }
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ffcc00;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+        }
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .filter-toggle {
+            padding: 10px 15px;
+            background: #ffcc00;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .filter-toggle {
+                display: block;
+            }
+            .filters {
+                display: none;
+            }
+            .filters.active {
+                display: block;
+            }
+            .destination-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -111,29 +255,298 @@
 </header>
 
 <div class="container">
-    <div class="section">
-        <h2>Popular Destinations in India</h2>
-        <label for="coorg-details">Coorg, Karnataka </label>
-        <input type="radio" id="coorg-details" name="destination">
-        <div class="details-container">
-            <img src="2.jpeg" alt="Coorg">
-            <p><b>Package:</b> 3 Days, 2 Nights</p>
-            <p><b>Includes:</b> AC Transport, Hotel, Breakfast, Sightseeing</p>
+    <input type="text" class="search-box" placeholder="Search destinations, activities, or locations...">
+    
+    <button class="filter-toggle" onclick="toggleFilters()">Show/Hide Filters</button>
+    
+    <div class="filters" id="filters-section">
+        <div class="filter-group">
+            <h3>Destinations</h3>
+            <div class="filter-options">
+                <input type="checkbox" id="filter-india" class="filter-checkbox">
+                <label for="filter-india" class="filter-label">India</label>
+                
+                <input type="checkbox" id="filter-thailand" class="filter-checkbox">
+                <label for="filter-thailand" class="filter-label">Thailand</label>
+                
+                <input type="checkbox" id="filter-bali" class="filter-checkbox">
+                <label for="filter-bali" class="filter-label">Bali</label>
+                
+                <input type="checkbox" id="filter-singapore" class="filter-checkbox">
+                <label for="filter-singapore" class="filter-label">Singapore</label>
+            </div>
         </div>
-        <label for="ooty-details">Ooty, Tamil Nadu </label>
-        <input type="radio" id="ooty-details" name="destination">
-        <div class="details-container">
-            <img src="1.jpeg" alt="Ooty">
-            <p><b>Package:</b> 3 Days, 2 Nights</p>
-            <p><b>Includes:</b> AC Transport, Hotel, Breakfast, Sightseeing</p>
+        
+        <div class="filter-group">
+            <h3>Duration</h3>
+            <div class="filter-options">
+                <input type="checkbox" id="filter-2-3days" class="filter-checkbox">
+                <label for="filter-2-3days" class="filter-label">2-3 Days</label>
+                
+                <input type="checkbox" id="filter-4-6days" class="filter-checkbox">
+                <label for="filter-4-6days" class="filter-label">4-6 Days</label>
+                
+                <input type="checkbox" id="filter-week" class="filter-checkbox">
+                <label for="filter-week" class="filter-label">1 Week</label>
+                
+                <input type="checkbox" id="filter-more" class="filter-checkbox">
+                <label for="filter-more" class="filter-label">More than 1 Week</label>
+            </div>
+        </div>
+        
+        <div class="filter-group">
+            <h3>Budget</h3>
+            <div class="filter-options">
+                <input type="checkbox" id="filter-budget" class="filter-checkbox">
+                <label for="filter-budget" class="filter-label">Budget (Under $500)</label>
+                
+                <input type="checkbox" id="filter-standard" class="filter-checkbox">
+                <label for="filter-standard" class="filter-label">Standard ($500-$1000)</label>
+                
+                <input type="checkbox" id="filter-premium" class="filter-checkbox">
+                <label for="filter-premium" class="filter-label">Premium ($1000-$2000)</label>
+                
+                <input type="checkbox" id="filter-luxury" class="filter-checkbox">
+                <label for="filter-luxury" class="filter-label">Luxury (Above $2000)</label>
+            </div>
+        </div>
+        
+        <div class="filter-group">
+            <h3>Experience</h3>
+            <div class="filter-options">
+                <input type="checkbox" id="filter-beach" class="filter-checkbox">
+                <label for="filter-beach" class="filter-label">Beach</label>
+                
+                <input type="checkbox" id="filter-adventure" class="filter-checkbox">
+                <label for="filter-adventure" class="filter-label">Adventure</label>
+                
+                <input type="checkbox" id="filter-cultural" class="filter-checkbox">
+                <label for="filter-cultural" class="filter-label">Cultural</label>
+                
+                <input type="checkbox" id="filter-wildlife" class="filter-checkbox">
+                <label for="filter-wildlife" class="filter-label">Wildlife</label>
+                
+                <input type="checkbox" id="filter-culinary" class="filter-checkbox">
+                <label for="filter-culinary" class="filter-label">Culinary</label>
+            </div>
         </div>
     </div>
-    <a href="contact.html" class="read-more">Read More / Enquire</a>
+    
+    <div class="sort-options">
+        <span>Sort by:</span>
+        <select id="sort-select">
+            <option value="popularity">Popularity</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="duration">Duration</option>
+            <option value="rating">Rating</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <h2>Discover Amazing Destinations</h2>
+        
+        <div class="destination-grid">
+            <div class="destination-card">
+                <img src="1.jpeg" alt="Ooty" class="destination-img">
+                <div class="destination-info">
+                    <div class="destination-name">Ooty, Tamil Nadu</div>
+                    <div class="destination-details"><b>Duration:</b> 3 Days, 2 Nights</div>
+                    <div class="destination-details"><b>Includes:</b> AC Transport, Hotel, Breakfast, Sightseeing</div>
+                    <div class="destination-details"><b>Experience:</b> Hills, Nature, Tea Plantations</div>
+                    <div class="price">$499</div>
+                    <a href="#" class="view-details">View Details</a>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <img src="2.jpeg" alt="Coorg" class="destination-img">
+                <div class="destination-info">
+                    <div class="destination-name">Coorg, Karnataka</div>
+                    <div class="destination-details"><b>Duration:</b> 3 Days, 2 Nights</div>
+                    <div class="destination-details"><b>Includes:</b> AC Transport, Hotel, Breakfast, Sightseeing</div>
+                    <div class="destination-details"><b>Experience:</b> Coffee Plantations, Waterfalls, Trekking</div>
+                    <div class="price">$549</div>
+                    <a href="#" class="view-details">View Details</a>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <img src="placeholder.jpg" alt="Goa" class="destination-img">
+                <div class="destination-info">
+                    <div class="destination-name">Goa</div>
+                    <div class="destination-details"><b>Duration:</b> 4 Days, 3 Nights</div>
+                    <div class="destination-details"><b>Includes:</b> Flights, Resort, Breakfast, Beach Activities</div>
+                    <div class="destination-details"><b>Experience:</b> Beach, Nightlife, Water Sports</div>
+                    <div class="price">$699</div>
+                    <a href="#" class="view-details">View Details</a>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <img src="placeholder.jpg" alt="Kerala" class="destination-img">
+                <div class="destination-info">
+                    <div class="destination-name">Kerala Backwaters</div>
+                    <div class="destination-details"><b>Duration:</b> 5 Days, 4 Nights</div>
+                    <div class="destination-details"><b>Includes:</b> Flights, Houseboat Stay, All Meals, Local Tours</div>
+                    <div class="destination-details"><b>Experience:</b> Backwaters, Ayurveda, Cultural</div>
+                    <div class="price">$899</div>
+                    <a href="#" class="view-details">View Details</a>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <img src="placeholder.jpg" alt="Andaman" class="destination-img">
+                <div class="destination-info">
+                    <div class="destination-name">Andaman Islands</div>
+                    <div class="destination-details"><b>Duration:</b> 6 Days, 5 Nights</div>
+                    <div class="destination-details"><b>Includes:</b> Flights, Resort, Breakfast, Island Hopping</div>
+                    <div class="destination-details"><b>Experience:</b> Beaches, Scuba Diving, Snorkeling</div>
+                    <div class="price">$1299</div>
+                    <a href="#" class="view-details">View Details</a>
+                </div>
+            </div>
+            
+            <div class="destination-card">
+                <img src="placeholder.jpg" alt="Ladakh" class="destination-img">
+                <div class="destination-info">
+                    <div class="destination-name">Ladakh Adventure</div>
+                    <div class="destination-details"><b>Duration:</b> 7 Days, 6 Nights</div>
+                    <div class="destination-details"><b>Includes:</b> Flights, Accommodation, Meals, Adventure Activities</div>
+                    <div class="destination-details"><b>Experience:</b> Mountains, Adventure, Monasteries</div>
+                    <div class="price">$1499</div>
+                    <a href="#" class="view-details">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="contact.html" class="read-more">View All Destinations</a>
 </div>
 
 <footer>
     <p>&copy; 2025 Explore World Travel Agency. All rights reserved.</p>
 </footer>
+
+<script>
+    function toggleFilters() {
+        const filtersSection = document.getElementById('filters-section');
+        filtersSection.classList.toggle('active');
+    }
+    
+    // Search functionality
+    document.querySelector('.search-box').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.destination-card');
+        
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+    
+    // Sorting functionality
+    document.getElementById('sort-select').addEventListener('change', function(e) {
+        const sortBy = e.target.value;
+        const cards = Array.from(document.querySelectorAll('.destination-card'));
+        const container = document.querySelector('.destination-grid');
+        
+        cards.sort((a, b) => {
+            if (sortBy === 'price-low') {
+                const priceA = parseFloat(a.querySelector('.price').textContent.replace('$', ''));
+                const priceB = parseFloat(b.querySelector('.price').textContent.replace('$', ''));
+                return priceA - priceB;
+            } else if (sortBy === 'price-high') {
+                const priceA = parseFloat(a.querySelector('.price').textContent.replace('$', ''));
+                const priceB = parseFloat(b.querySelector('.price').textContent.replace('$', ''));
+                return priceB - priceA;
+            } else if (sortBy === 'duration') {
+                const durationA = a.querySelector('.destination-details').textContent;
+                const durationB = b.querySelector('.destination-details').textContent;
+                const daysA = parseInt(durationA.match(/(\d+) Days/)[1]);
+                const daysB = parseInt(durationB.match(/(\d+) Days/)[1]);
+                return daysA - daysB;
+            }
+            // For other sort options, we would need more data. For now, return default order
+            return 0;
+        });
+        
+        // Clear and re-append sorted cards
+        container.innerHTML = '';
+        cards.forEach(card => container.appendChild(card));
+    });
+    
+    // Filter functionality
+    const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+    filterCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', applyFilters);
+    });
+    
+    function applyFilters() {
+        const cards = document.querySelectorAll('.destination-card');
+        const selectedDestinations = getSelectedValues('filter-india', 'filter-thailand', 'filter-bali', 'filter-singapore');
+        const selectedDurations = getSelectedValues('filter-2-3days', 'filter-4-6days', 'filter-week', 'filter-more');
+        const selectedBudgets = getSelectedValues('filter-budget', 'filter-standard', 'filter-premium', 'filter-luxury');
+        const selectedExperiences = getSelectedValues('filter-beach', 'filter-adventure', 'filter-cultural', 'filter-wildlife', 'filter-culinary');
+        
+        cards.forEach(card => {
+            const cardInfo = card.textContent.toLowerCase();
+            
+            // This is a simple implementation - in a real app, you'd use data attributes or JSON
+            let showCard = true;
+            
+            // If any filter category has selections but the card doesn't match, hide it
+            if (selectedDestinations.length > 0) {
+                const matches = selectedDestinations.some(dest => cardInfo.includes(dest.toLowerCase()));
+                if (!matches) showCard = false;
+            }
+            
+            // Simple duration check - would be better with data attributes
+            if (selectedDurations.length > 0 && showCard) {
+                const durationText = card.querySelector('.destination-details').textContent;
+                const days = parseInt(durationText.match(/(\d+) Days/)[1]);
+                
+                let durationMatch = false;
+                if (selectedDurations.includes('2-3days') && days >= 2 && days <= 3) durationMatch = true;
+                if (selectedDurations.includes('4-6days') && days >= 4 && days <= 6) durationMatch = true;
+                if (selectedDurations.includes('week') && days == 7) durationMatch = true;
+                if (selectedDurations.includes('more') && days > 7) durationMatch = true;
+                
+                if (!durationMatch) showCard = false;
+            }
+            
+            // Budget check
+            if (selectedBudgets.length > 0 && showCard) {
+                const priceText = card.querySelector('.price').textContent;
+                const price = parseFloat(priceText.replace('$', ''));
+                
+                let budgetMatch = false;
+                if (selectedBudgets.includes('budget') && price < 500) budgetMatch = true;
+                if (selectedBudgets.includes('standard') && price >= 500 && price < 1000) budgetMatch = true;
+                if (selectedBudgets.includes('premium') && price >= 1000 && price < 2000) budgetMatch = true;
+                if (selectedBudgets.includes('luxury') && price >= 2000) budgetMatch = true;
+                
+                if (!budgetMatch) showCard = false;
+            }
+            
+            // Experience check
+            if (selectedExperiences.length > 0 && showCard) {
+                const matches = selectedExperiences.some(exp => cardInfo.includes(exp.toLowerCase()));
+                if (!matches) showCard = false;
+            }
+            
+            card.style.display = showCard ? 'block' : 'none';
+        });
+    }
+    
+    function getSelectedValues(...ids) {
+        return ids.filter(id => document.getElementById(id).checked)
+            .map(id => id.replace('filter-', ''));
+    }
+</script>
 
 </body>
 </html>
