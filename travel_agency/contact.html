@@ -16,6 +16,9 @@
             --text-secondary: #b3b3b3;
             --border-radius: 16px;
             --transition: all 0.3s ease;
+            --success-color: #00c853;
+            --error-color: #f44336;
+            --warning-color: #ff9800;
         }
 
         * {
@@ -76,7 +79,7 @@
             transition: var(--transition);
         }
 
-        input, textarea {
+        input, textarea, select {
             width: 100%;
             padding: 16px;
             background: rgba(255, 255, 255, 0.05);
@@ -88,20 +91,34 @@
             transition: var(--transition);
         }
 
-        input:focus, textarea:focus {
+        input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--accent-color);
             background: rgba(255, 255, 255, 0.08);
             box-shadow: 0 0 20px rgba(77, 124, 254, 0.2);
         }
 
-        input::placeholder, textarea::placeholder {
+        input::placeholder, textarea::placeholder, select::placeholder {
             color: rgba(255, 255, 255, 0.3);
         }
 
         textarea {
             resize: vertical;
             min-height: 120px;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        select option {
+            background-color: #1a1a2e;
+            color: var(--text-primary);
         }
 
         button {
@@ -171,14 +188,15 @@
 
         /* Input focus animation */
         .form-group input:focus ~ label,
-        .form-group textarea:focus ~ label {
+        .form-group textarea:focus ~ label,
+        .form-group select:focus ~ label {
             color: var(--accent-color);
             transform: translateY(-50%) scale(0.9);
         }
 
         /* Success animation */
         button.success {
-            background: #00c853;
+            background: var(--success-color);
         }
 
         /* Loading animation */
@@ -193,29 +211,662 @@
             pointer-events: none;
             opacity: 0.8;
         }
+
+        /* Checkbox styling */
+        .checkbox-group {
+            display: flex;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            height: 18px;
+            width: 18px;
+            cursor: pointer;
+        }
+
+        /* Radio button styling */
+        .radio-group {
+            margin-bottom: 1rem;
+        }
+
+        .radio-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+            margin-right: 8px;
+            height: 18px;
+            width: 18px;
+            cursor: pointer;
+        }
+
+        /* Filter tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+        }
+
+        .filter-tab.active {
+            background: rgba(77, 124, 254, 0.2);
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        /* Form validation */
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        input.error, textarea.error, select.error {
+            border-color: var(--error-color);
+        }
+
+        /* Filter content */
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+        }
+
+        /* Range slider */
+        .range-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .range-container label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+        }
+
+        .range-value {
+            margin-top: 8px;
+            text-align: center;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* File upload */
+        .file-upload {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .file-upload:hover .file-upload-label {
+            border-color: var(--accent-color);
+            color: var(--text-primary);
+        }
+
+        .file-name {
+            font-size: 0.9rem;
+            margin-top: 8px;
+            text-align: center;
+            color: var(--text-secondary);
+            word-break: break-all;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .notification.success {
+            background: var(--success-color);
+        }
+
+        .notification.error {
+            background: var(--error-color);
+        }
+
+        .notification.warning {
+            background: var(--warning-color);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-icon {
+            margin-right: 10px;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 6px;
+            cursor: help;
+        }
+
+        .tooltip-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 18px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            pointer-events: none;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Additional fields container */
+        .additional-fields {
+            display: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .additional-fields.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Contact Us</h2>
-        <form action="index2.html" method="get">
-            <div class="form-group">
-                <input type="text" id="name" name="name" placeholder="Enter your name" required>
-                <label for="name">Name</label>
+        
+        <div class="filter-tabs">
+            <div class="filter-tab active" data-tab="general">General Inquiry</div>
+            <div class="filter-tab" data-tab="support">Support</div>
+            <div class="filter-tab" data-tab="booking">Booking</div>
+        </div>
+        
+        <form id="contactForm" action="index2.html" method="get" novalidate>
+            <!-- General Inquiry Form -->
+            <div class="form-content active" id="general-content">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    <label for="name">Name</label>
+                    <div class="error-message" id="name-error">Please enter your name</div>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <label for="email">Email</label>
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <select id="inquiry-type" name="inquiry-type" required>
+                        <option value="" selected disabled>Select inquiry type</option>
+                        <option value="destination">Destination Information</option>
+                        <option value="package">Package Details</option>
+                        <option value="pricing">Pricing & Payments</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <label for="inquiry-type">Inquiry Type</label>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder="Type your message here..." rows="5" required></textarea>
+                    <label for="message">Message</label>
+                    <div class="error-message" id="message-error">Please enter your message</div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter">Subscribe to our newsletter for travel deals</label>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                <label for="email">Email</label>
+            
+            <!-- Support Form -->
+            <div class="form-content" id="support-content">
+                <div class="form-group">
+                    <input type="text" id="support-name" name="support-name" placeholder="Enter your name" required>
+                    <label for="support-name">Name</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" id="support-email" name="support-email" placeholder="Enter your email" required>
+                    <label for="support-email">Email</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" id="booking-ref" name="booking-ref" placeholder="Enter your booking reference">
+                    <label for="booking-ref">Booking Reference (if applicable)</label>
+                </div>
+                
+                <div class="form-group">
+                    <select id="issue-type" name="issue-type" required>
+                        <option value="" selected disabled>Select issue type</option>
+                        <option value="booking-changes">Booking Changes</option>
+                        <option value="cancellation">Cancellation Request</option>
+                        <option value="payment-issue">Payment Issue</option>
+                        <option value="travel-documents">Travel Documents</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <label for="issue-type">Issue Type</label>
+                </div>
+                
+                <div class="range-container">
+                    <label for="urgency">Urgency Level:</label>
+                    <input type="range" id="urgency" name="urgency" min="1" max="5" value="3" class="range-slider">
+                    <div class="range-value" id="urgency-value">Medium (3/5)</div>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="support-message" name="support-message" placeholder="Describe your issue in detail..." rows="5" required></textarea>
+                    <label for="support-message">Issue Details</label>
+                </div>
+                
+                <div class="file-upload">
+                    <input type="file" id="support-attachment" name="support-attachment" accept=".jpg,.jpeg,.png,.pdf">
+                    <div class="file-upload-label">
+                        <span>Upload supporting documents (optional)</span>
+                    </div>
+                    <div class="file-name" id="file-name"></div>
+                </div>
             </div>
-            <div class="form-group">
-                <textarea id="message" name="message" placeholder="Type your message here..." rows="5" required></textarea>
-                <label for="message">Message</label>
+            
+            <!-- Booking Form -->
+            <div class="form-content" id="booking-content">
+                <div class="form-group">
+                    <input type="text" id="booking-name" name="booking-name" placeholder="Enter your name" required>
+                    <label for="booking-name">Name</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" id="booking-email" name="booking-email" placeholder="Enter your email" required>
+                    <label for="booking-email">Email</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    <label for="phone">Phone Number</label>
+                </div>
+                
+                <div class="form-group">
+                    <select id="destination" name="destination" required>
+                        <option value="" selected disabled>Select destination</option>
+                        <option value="ooty">Ooty, Tamil Nadu</option>
+                        <option value="coorg">Coorg, Karnataka</option>
+                        <option value="goa">Goa</option>
+                        <option value="kerala">Kerala Backwaters</option>
+                        <option value="andaman">Andaman Islands</option>
+                        <option value="ladakh">Ladakh</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <label for="destination">Destination</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" id="other-destination" name="other-destination" placeholder="Enter destination" style="display: none;">
+                    <label for="other-destination">Other Destination</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="number" id="travelers" name="travelers" placeholder="Number of travelers" min="1" max="20" required>
+                    <label for="travelers">Number of Travelers</label>
+                </div>
+                
+                <div class="radio-group">
+                    <label>Preferred Accommodation:</label>
+                    <div class="radio-options">
+                        <label class="radio-option">
+                            <input type="radio" name="accommodation" value="budget" required> Budget
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="accommodation" value="standard" required> Standard
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="accommodation" value="premium" required> Premium
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="accommodation" value="luxury" required> Luxury
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <input type="date" id="travel-date" name="travel-date" required min="">
+                    <label for="travel-date">Preferred Travel Date</label>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="special-requests" name="special-requests" placeholder="Any special requests or preferences..." rows="5"></textarea>
+                    <label for="special-requests">Special Requests</label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="show-activities" name="show-activities">
+                    <label for="show-activities">I'm interested in activities and excursions</label>
+                </div>
+                
+                <div class="additional-fields" id="activities-fields">
+                    <div class="form-group">
+                        <select id="activity-type" name="activity-type" multiple>
+                            <option value="adventure">Adventure Activities</option>
+                            <option value="cultural">Cultural Experiences</option>
+                            <option value="nature">Nature & Wildlife</option>
+                            <option value="water">Water Sports</option>
+                            <option value="food">Food & Culinary</option>
+                            <option value="wellness">Wellness & Spa</option>
+                        </select>
+                        <label for="activity-type">Activity Types (Hold Ctrl/Cmd to select multiple)</label>
+                    </div>
+                </div>
             </div>
-            <button type="submit">Send Message</button>
+            
+            <button type="submit" id="submitButton">Send Message</button>
         </form>
+        
         <div style="text-align: center;">
             <a href="index2.html" class="back-link">Back to Home</a>
         </div>
     </div>
+    
+    <div class="notification" id="notification">
+        <span class="notification-icon">✓</span>
+        <span class="notification-message">Message sent successfully!</span>
+    </div>
+    
+    <script>
+        // Set minimum date to today for date input
+        const travelDateInput = document.getElementById('travel-date');
+        if (travelDateInput) {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            travelDateInput.setAttribute('min', formattedDate);
+        }
+        
+        // Tab switching
+        const tabs = document.querySelectorAll('.filter-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.form-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+        
+        // Range slider value display
+        const urgencySlider = document.getElementById('urgency');
+        const urgencyValue = document.getElementById('urgency-value');
+        
+        if (urgencySlider && urgencyValue) {
+            urgencySlider.addEventListener('input', function() {
+                const value = this.value;
+                let urgencyText = '';
+                
+                switch(value) {
+                    case '1':
+                        urgencyText = 'Very Low';
+                        break;
+                    case '2':
+                        urgencyText = 'Low';
+                        break;
+                    case '3':
+                        urgencyText = 'Medium';
+                        break;
+                    case '4':
+                        urgencyText = 'High';
+                        break;
+                    case '5':
+                        urgencyText = 'Very High';
+                        break;
+                }
+                
+                urgencyValue.textContent = `${urgencyText} (${value}/5)`;
+            });
+        }
+        
+        // File upload handling
+        const fileInput = document.getElementById('support-attachment');
+        const fileName = document.getElementById('file-name');
+        
+        if (fileInput && fileName) {
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    fileName.textContent = this.files[0].name;
+                } else {
+                    fileName.textContent = '';
+                }
+            });
+        }
+        
+        // Show/hide additional fields based on checkbox
+        const activitiesCheckbox = document.getElementById('show-activities');
+        const activitiesFields = document.getElementById('activities-fields');
+        
+        if (activitiesCheckbox && activitiesFields) {
+            activitiesCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    activitiesFields.classList.add('show');
+                } else {
+                    activitiesFields.classList.remove('show');
+                }
+            });
+        }
+        
+        // Show/hide 'Other Destination' field
+        const destinationSelect = document.getElementById('destination');
+        const otherDestinationInput = document.getElementById('other-destination');
+        
+        if (destinationSelect && otherDestinationInput) {
+            destinationSelect.addEventListener('change', function() {
+                if (this.value === 'other') {
+                    otherDestinationInput.style.display = 'block';
+                    otherDestinationInput.setAttribute('required', 'required');
+                } else {
+                    otherDestinationInput.style.display = 'none';
+                    otherDestinationInput.removeAttribute('required');
+                }
+            });
+        }
+        
+        // Form validation and submission
+        const contactForm = document.getElementById('contactForm');
+        const submitButton = document.getElementById('submitButton');
+        const notification = document.getElementById('notification');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get active form content
+                const activeContent = document.querySelector('.form-content.active');
+                const formId = activeContent.id;
+                
+                // Basic validation
+                let isValid = true;
+                
+                // Validate general form
+                if (formId === 'general-content') {
+                    const name = document.getElementById('name');
+                    const email = document.getElementById('email');
+                    const message = document.getElementById('message');
+                    const nameError = document.getElementById('name-error');
+                    const emailError = document.getElementById('email-error');
+                    const messageError = document.getElementById('message-error');
+                    
+                    // Reset errors
+                    name.classList.remove('error');
+                    email.classList.remove('error');
+                    message.classList.remove('error');
+                    nameError.style.display = 'none';
+                    emailError.style.display = 'none';
+                    messageError.style.display = 'none';
+                    
+                    // Validate name
+                    if (!name.value.trim()) {
+                        name.classList.add('error');
+                        nameError.style.display = 'block';
+                        isValid = false;
+                    }
+                    
+                    // Validate email
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email.value.trim())) {
+                        email.classList.add('error');
+                        emailError.style.display = 'block';
+                        isValid = false;
+                    }
+                    
+                    // Validate message
+                    if (!message.value.trim()) {
+                        message.classList.add('error');
+                        messageError.style.display = 'block';
+                        isValid = false;
+                    }
+                }
+                
+                // If valid, simulate form submission
+                if (isValid) {
+                    // Show loading state
+                    submitButton.classList.add('loading');
+                    submitButton.innerText = 'Sending...';
+                    
+                    // Simulate API request
+                    setTimeout(function() {
+                        // Show success state
+                        submitButton.classList.remove('loading');
+                        submitButton.classList.add('success');
+                        submitButton.innerText = 'Message Sent!';
+                        
+                        // Show notification
+                        notification.classList.add('success');
+                        notification.classList.add('show');
+                        document.querySelector('.notification-message').textContent = 'Message sent successfully!';
+                        
+                        // Hide notification after 3 seconds
+                        setTimeout(function() {
+                            notification.classList.remove('show');
+                            
+                            // Reset form after 1 second
+                            setTimeout(function() {
+                                contactForm.reset();
+                                submitButton.classList.remove('success');
+                                submitButton.innerText = 'Send Message';
+                                
+                                // Hide any conditionally shown fields
+                                if (activitiesFields) activitiesFields.classList.remove('show');
+                                if (otherDestinationInput) otherDestinationInput.style.display = 'none';
+                                if (fileName) fileName.textContent = '';
+                                
+                                // Redirect to home page
+                                // window.location.href = 'index2.html';
+                            }, 1000);
+                        }, 3000);
+                    }, 1500);
+                }
+            });
+        }
+    </script>
 </body>
 </html>
