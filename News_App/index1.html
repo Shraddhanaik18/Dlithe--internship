@@ -8,8 +8,10 @@
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
+            --accent-color: #e74c3c;
             --text-color: #333;
             --light-gray: #f8f9fa;
+            --border-color: #e0e6ed;
             --border-radius: 8px;
         }
 
@@ -30,7 +32,7 @@
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 2rem 0;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -44,14 +46,139 @@
 
         .container {
             width: 90%;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .filter-sidebar {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .filter-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-section h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .filter-section h3:after {
+            content: '▼';
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .filter-section h3.collapsed:after {
+            transform: rotate(-90deg);
+        }
+
+        .filter-options {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding-right: 0.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-option input {
+            margin-right: 0.5rem;
+        }
+
+        .filter-option label {
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .date-range {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .date-range input {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .search-bar {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            font-size: 0.95rem;
+        }
+
+        .search-bar button {
+            padding: 0.75rem 1rem;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background: #2980b9;
+        }
+
+        .clear-filters {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            display: block;
+            margin-left: auto;
+        }
+
+        .news-content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
         .news-section {
             background: white;
-            margin-bottom: 1.5rem;
             border-radius: var(--border-radius);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -83,13 +210,39 @@
             font-size: 0.9rem;
             color: #666;
             display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
             align-items: center;
         }
 
-        .news-meta::before {
+        .meta-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .meta-item:before {
             content: "•";
             color: var(--secondary-color);
+            margin-right: 0.5rem;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-image {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            background-color: var(--secondary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
         }
 
         .news-content {
@@ -107,9 +260,13 @@
             display: block;
         }
 
+        .news-content {
+            display: none;
+        }
+
         .read-more {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 0.75rem 1.5rem;
             background: var(--secondary-color);
             color: white;
             text-decoration: none;
@@ -118,7 +275,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: background-color 0.3s ease;
-            margin: 2rem 0;
         }
 
         .read-more:hover {
@@ -130,12 +286,65 @@
             margin: 2rem 0;
         }
 
+        .category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tag-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background-color: rgba(44, 62, 80, 0.1);
+            color: var(--primary-color);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .mobile-filter-toggle {
+            display: none;
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
         footer {
             background: var(--primary-color);
             color: white;
             text-align: center;
             padding: 2rem 0;
             margin-top: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-filter-toggle {
+                display: block;
+            }
+
+            .filter-sidebar {
+                display: none;
+            }
+
+            .filter-sidebar.active {
+                display: block;
+            }
         }
 
         @media (max-width: 768px) {
@@ -158,6 +367,46 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle filter sidebar on mobile
+            const filterToggleBtn = document.getElementById('filter-toggle');
+            const filterSidebar = document.getElementById('filter-sidebar');
+            
+            if (filterToggleBtn) {
+                filterToggleBtn.addEventListener('click', function() {
+                    filterSidebar.classList.toggle('active');
+                    filterToggleBtn.textContent = filterSidebar.classList.contains('active') 
+                        ? 'Hide Filters' 
+                        : 'Show Filters';
+                });
+            }
+            
+            // Toggle collapsible sections
+            const filterHeaders = document.querySelectorAll('.filter-section h3');
+            filterHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    this.classList.toggle('collapsed');
+                    const options = this.nextElementSibling;
+                    options.style.display = options.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+            
+            // Clear all filters
+            const clearBtn = document.getElementById('clear-filters');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    const checkboxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
+                    checkboxes.forEach(checkbox => checkbox.checked = false);
+                    
+                    const dateInputs = document.querySelectorAll('.date-range input');
+                    dateInputs.forEach(input => input.value = '');
+                    
+                    document.getElementById('search-input').value = '';
+                });
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -165,35 +414,223 @@
     </header>
     
     <div class="container">
-        <div class="news-section">
-            <label for="news1" class="news-title">Apple Expands Manufacturing in India</label>
-            <p class="news-meta">Category: Business | Published: Feb 21, 2025</p>
-            <input type="radio" id="news1" name="news">
-            <div class="news-content">
-                <p>Apple is increasing its production in India as part of its "Make in India" initiative...</p>
+        <button id="filter-toggle" class="mobile-filter-toggle">Show Filters</button>
+        
+        <div class="news-grid">
+            <div id="filter-sidebar" class="filter-sidebar">
+                <h2 class="filter-title">Filter News</h2>
+                
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search news...">
+                    <button type="button">Search</button>
+                </div>
+                
+                <div class="filter-section">
+                    <h3>Categories</h3>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-business" value="business">
+                            <label for="cat-business">Business</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-aviation" value="aviation">
+                            <label for="cat-aviation">Aviation</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-finance" value="finance">
+                            <label for="cat-finance">Finance</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-technology" value="technology">
+                            <label for="cat-technology">Technology</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-politics" value="politics">
+                            <label for="cat-politics">Politics</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-sports" value="sports">
+                            <label for="cat-sports">Sports</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3>Authors</h3>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="author-smith" value="smith">
+                            <label for="author-smith">Robert Smith</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="author-patel" value="patel">
+                            <label for="author-patel">Anita Patel</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="author-zhang" value="zhang">
+                            <label for="author-zhang">Wei Zhang</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="author-johnson" value="johnson">
+                            <label for="author-johnson">David Johnson</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="author-garcia" value="garcia">
+                            <label for="author-garcia">Maria Garcia</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3>Date Range</h3>
+                    <div class="filter-options">
+                        <div class="date-range">
+                            <input type="date" id="date-from" placeholder="From">
+                            <input type="date" id="date-to" placeholder="To">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h3>Tags</h3>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="tag-trending" value="trending">
+                            <label for="tag-trending">Trending</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="tag-featured" value="featured">
+                            <label for="tag-featured">Featured</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="tag-exclusive" value="exclusive">
+                            <label for="tag-exclusive">Exclusive</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="tag-breaking" value="breaking">
+                            <label for="tag-breaking">Breaking News</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="tag-indepth" value="indepth">
+                            <label for="tag-indepth">In-Depth</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="clear-filters" class="clear-filters">Clear All Filters</button>
             </div>
-        </div>
+            
+            <div class="news-content-area">
+                <div class="news-section">
+                    <label for="news1" class="news-title">Apple Expands Manufacturing in India</label>
+                    <div class="news-meta">
+                        <span class="meta-item category-badge">Business</span>
+                        <span class="meta-item">Feb 21, 2025</span>
+                        <span class="meta-item author">
+                            <span class="author-image">AP</span>
+                            <span>Anita Patel</span>
+                        </span>
+                        <span class="meta-item tag-badge">Trending</span>
+                        <span class="meta-item tag-badge">Exclusive</span>
+                    </div>
+                    <input type="radio" id="news1" name="news">
+                    <div class="news-content">
+                        <p>Apple is increasing its production in India as part of its "Make in India" initiative, sources familiar with the matter revealed to News Today. This strategic move follows successful trial manufacturing of iPhone models at the Foxconn facility near Chennai.</p>
+                        <p>The tech giant plans to shift approximately 25% of its global iPhone production to India by 2027, marking a significant change in its manufacturing strategy that has historically been centered in China.</p>
+                        <p>"This expansion represents a vote of confidence in India's manufacturing capabilities," said industry analyst Rajiv Sharma. "It will create thousands of jobs and potentially lower costs for Indian consumers."</p>
+                        <p>The company has also been in talks with the Indian government regarding export incentives and reduced import duties on components, according to officials who requested anonymity due to the sensitive nature of ongoing negotiations.</p>
+                        <a href="#" class="read-more">Read Full Article</a>
+                    </div>
+                </div>
 
-        <div class="news-section">
-            <label for="news2" class="news-title">Air India Finalizes Multi-Billion Dollar Aircraft Deal</label>
-            <p class="news-meta">Category: Aviation | Published: Sep 12, 2024</p>
-            <input type="radio" id="news2" name="news">
-            <div class="news-content">
-                <p>Air India has signed agreements to expand its fleet with new Boeing and Airbus aircraft...</p>
+                <div class="news-section">
+                    <label for="news2" class="news-title">Air India Finalizes Multi-Billion Dollar Aircraft Deal</label>
+                    <div class="news-meta">
+                        <span class="meta-item category-badge">Aviation</span>
+                        <span class="meta-item">Sep 12, 2024</span>
+                        <span class="meta-item author">
+                            <span class="author-image">WZ</span>
+                            <span>Wei Zhang</span>
+                        </span>
+                        <span class="meta-item tag-badge">Featured</span>
+                    </div>
+                    <input type="radio" id="news2" name="news">
+                    <div class="news-content">
+                        <p>Air India has signed agreements to expand its fleet with new Boeing and Airbus aircraft in a deal valued at over $70 billion. The airline has committed to purchasing 220 Boeing aircraft and 250 Airbus aircraft over the next decade.</p>
+                        <p>This historic order includes a mix of narrow-body and wide-body aircraft to modernize the carrier's aging fleet and support its ambitious international expansion plans under the Tata Group's ownership.</p>
+                        <p>"This order positions Air India for long-term growth and sustainability," said the airline's CEO in a press conference. "We're transforming our fleet to provide world-class comfort and efficiency for our passengers."</p>
+                        <p>The first deliveries are expected to begin in early 2026, with the new aircraft featuring state-of-the-art cabin interiors and enhanced fuel efficiency.</p>
+                        <a href="#" class="read-more">Read Full Article</a>
+                    </div>
+                </div>
+
+                <div class="news-section">
+                    <label for="news3" class="news-title">Stock Market Hits Record High</label>
+                    <div class="news-meta">
+                        <span class="meta-item category-badge">Finance</span>
+                        <span class="meta-item">May 23, 2024</span>
+                        <span class="meta-item author">
+                            <span class="author-image">RS</span>
+                            <span>Robert Smith</span>
+                        </span>
+                        <span class="meta-item tag-badge">Breaking News</span>
+                    </div>
+                    <input type="radio" id="news3" name="news">
+                    <div class="news-content">
+                        <p>The stock market reached a new all-time high today, with the Sensex surging past 90,000 points for the first time in history. This milestone comes amid strong economic growth projections and better-than-expected corporate earnings reports.</p>
+                        <p>Technology and banking sectors led the rally, with several blue-chip stocks hitting their own record highs. Foreign institutional investors have pumped in over $3 billion in the past month alone.</p>
+                        <p>"We're seeing unprecedented investor confidence," said market expert Sanjay Mehta. "The combination of strong domestic consumption, government infrastructure spending, and global investment inflows has created perfect conditions for this bull run."</p>
+                        <p>However, some analysts caution that valuations are becoming stretched and advise investors to remain selective in their investment approach.</p>
+                        <a href="#" class="read-more">Read Full Article</a>
+                    </div>
+                </div>
+
+                <div class="news-section">
+                    <label for="news4" class="news-title">New AI Research Center Opens in Bengaluru</label>
+                    <div class="news-meta">
+                        <span class="meta-item category-badge">Technology</span>
+                        <span class="meta-item">Feb 15, 2025</span>
+                        <span class="meta-item author">
+                            <span class="author-image">DJ</span>
+                            <span>David Johnson</span>
+                        </span>
+                        <span class="meta-item tag-badge">In-Depth</span>
+                    </div>
+                    <input type="radio" id="news4" name="news">
+                    <div class="news-content">
+                        <p>A state-of-the-art artificial intelligence research center has been inaugurated in Bengaluru's technology corridor. The facility, established through a public-private partnership, aims to position India as a global leader in AI innovation.</p>
+                        <p>The center will host over 200 researchers and focus on developing AI solutions for healthcare, agriculture, and climate change mitigation. It features advanced computing infrastructure including quantum processing capabilities.</p>
+                        <p>"This center represents our commitment to building indigenous AI capabilities," said the Minister of Electronics and IT at the opening ceremony. "We expect breakthrough innovations that will address India's unique challenges."</p>
+                        <p>The facility will also collaborate with leading universities and offer residency programs for promising AI researchers from across the country.</p>
+                        <a href="#" class="read-more">Read Full Article</a>
+                    </div>
+                </div>
+
+                <div class="news-section">
+                    <label for="news5" class="news-title">National Cricket Team Announces New Captain</label>
+                    <div class="news-meta">
+                        <span class="meta-item category-badge">Sports</span>
+                        <span class="meta-item">Jan 10, 2025</span>
+                        <span class="meta-item author">
+                            <span class="author-image">MG</span>
+                            <span>Maria Garcia</span>
+                        </span>
+                        <span class="meta-item tag-badge">Breaking News</span>
+                    </div>
+                    <input type="radio" id="news5" name="news">
+                    <div class="news-content">
+                        <p>The national cricket board has appointed a new captain to lead the men's team across all formats. This decision comes after the previous captain's announcement to step down to focus on his batting.</p>
+                        <p>The new captain, who has been vice-captain for the past three years, expressed his excitement about taking on this new responsibility. "It's an honor to lead this talented group of players," he said during the press conference.</p>
+                        <p>His first assignment will be the upcoming three-match Test series against Australia, followed by the World Test Championship final if the team qualifies.</p>
+                        <p>Cricket analysts have generally welcomed the appointment, citing his tactical acumen and respectful relationship with teammates as positive factors for his captaincy.</p>
+                        <a href="#" class="read-more">Read Full Article</a>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <a href="reg.html" class="read-more">Load More News</a>
+                </div>
             </div>
-        </div>
-
-        <div class="news-section">
-            <label for="news3" class="news-title">Stock Market Hits Record High</label>
-            <p class="news-meta">Category: Finance | Published: May 23, 2024</p>
-            <input type="radio" id="news3" name="news">
-            <div class="news-content">
-                <p>The stock market reached a new all-time high due to strong economic growth...</p>
-            </div>
-        </div>
-
-        <div class="button-container">
-            <a href="reg.html" class="read-more">Read More</a>
         </div>
     </div>
 
