@@ -91,7 +91,7 @@
             position: relative;
         }
 
-        input, textarea {
+        input, textarea, select {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid var(--border-color);
@@ -109,7 +109,7 @@
             font-weight: 500;
         }
 
-        input:focus, textarea:focus {
+        input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(93, 120, 255, 0.1);
@@ -174,38 +174,474 @@
             left: 0;
         }
 
+        /* Radio buttons styling */
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        /* Checkbox styling */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        /* Tabs for filters */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .tab:hover {
+            color: var(--primary-color);
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Filter section */
+        .filter-section {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .filter-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .clear-filters {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .clear-filters:hover {
+            text-decoration: underline;
+        }
+
+        .filter-toggle {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .toggle-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .filter-options {
+            margin-top: 10px;
+        }
+
         /* Simple responsive adjustments */
         @media (max-width: 480px) {
             .container {
                 padding: 1.8rem;
             }
+            
+            .radio-group, .checkbox-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-panel {
+                max-height: 300px;
+                overflow-y: auto;
+            }
+        }
+        
+        /* Toggle sections */
+        .filters-panel {
+            display: none;
+        }
+        
+        .filters-panel.active {
+            display: block;
+        }
+        
+        .form-panel {
+            display: none;
+        }
+        
+        .form-panel.active {
+            display: block;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.tab');
+            const formPanel = document.querySelector('.form-panel');
+            const filtersPanel = document.querySelector('.filters-panel');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding panel
+                    if (this.getAttribute('data-tab') === 'form') {
+                        formPanel.classList.add('active');
+                        filtersPanel.classList.remove('active');
+                    } else {
+                        formPanel.classList.remove('active');
+                        filtersPanel.classList.add('active');
+                    }
+                });
+            });
+            
+            // Set Form tab as active by default
+            document.querySelector('[data-tab="form"]').click();
+            
+            // Filter toggle functionality
+            document.querySelectorAll('.filter-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const options = this.nextElementSibling;
+                    const icon = this.querySelector('.toggle-icon');
+                    
+                    if (options.style.display === 'none' || !options.style.display) {
+                        options.style.display = 'block';
+                        icon.classList.add('open');
+                    } else {
+                        options.style.display = 'none';
+                        icon.classList.remove('open');
+                    }
+                });
+            });
+            
+            // Clear filters functionality
+            document.querySelector('.clear-filters').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Reset all checkboxes
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                // Reset date inputs
+                document.querySelectorAll('input[type="date"]').forEach(date => {
+                    date.value = '';
+                });
+                
+                // Reset text search
+                document.getElementById('search-query').value = '';
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
         <h2>Enquire</h2>
-        <form action="index1.html" method="get">
-            <div class="form-group">
-                <label for="name">Your Name</label>
-                <div class="input-container">
-                    <input type="text" id="name" name="name" required>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="form">New Enquiry</div>
+            <div class="tab" data-tab="filters">Filter Enquiries</div>
+        </div>
+        
+        <!-- Form Panel -->
+        <div class="form-panel active">
+            <form action="index1.html" method="get">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <div class="input-container">
+                        <input type="text" id="name" name="name" required>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="email">Your Email</label>
-                <div class="input-container">
-                    <input type="email" id="email" name="email" required>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <div class="input-container">
+                        <input type="email" id="email" name="email" required>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="message">Your Message</label>
-                <div class="input-container">
-                    <textarea id="message" name="message" rows="4" required></textarea>
+                <div class="form-group">
+                    <label for="department">Select Department</label>
+                    <div class="input-container">
+                        <select id="department" name="department" required>
+                            <option value="" disabled selected>Choose a department</option>
+                            <option value="sales">Sales</option>
+                            <option value="support">Technical Support</option>
+                            <option value="billing">Billing</option>
+                            <option value="general">General Inquiry</option>
+                        </select>
+                    </div>
                 </div>
+                <div class="form-group">
+                    <label for="operator">Preferred Operator (Optional)</label>
+                    <div class="input-container">
+                        <select id="operator" name="operator">
+                            <option value="" selected>Any available operator</option>
+                            <option value="john">John Smith</option>
+                            <option value="sarah">Sarah Johnson</option>
+                            <option value="mike">Mike Thompson</option>
+                            <option value="laura">Laura Wilson</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Priority Level</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" id="priority-low" name="priority" value="low" checked>
+                            Low
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" id="priority-medium" name="priority" value="medium">
+                            Medium
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" id="priority-high" name="priority" value="high">
+                            High
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <div class="input-container">
+                        <select id="category" name="category">
+                            <option value="" selected>Select a category</option>
+                            <option value="question">Question</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="issue">Technical Issue</option>
+                            <option value="billing">Billing Issue</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <div class="input-container">
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                </div>
+                <button type="submit">Submit Enquiry</button>
+            </form>
+        </div>
+        
+        <!-- Filters Panel -->
+        <div class="filters-panel">
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span class="filter-title">Enquiry Filters</span>
+                    <a href="#" class="clear-filters">Clear All</a>
+                </div>
+                
+                <div class="form-group">
+                    <label for="search-query">Search Enquiries</label>
+                    <div class="input-container">
+                        <input type="text" id="search-query" name="search" placeholder="Search by keyword or ID...">
+                    </div>
+                </div>
+                
+                <div class="filter-toggle">
+                    Date Range <span class="toggle-icon">▼</span>
+                </div>
+                <div class="filter-options" style="display: none;">
+                    <div class="form-group">
+                        <label for="date-from">From</label>
+                        <div class="input-container">
+                            <input type="date" id="date-from" name="date_from">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date-to">To</label>
+                        <div class="input-container">
+                            <input type="date" id="date-to" name="date_to">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-toggle">
+                    Department <span class="toggle-icon">▼</span>
+                </div>
+                <div class="filter-options" style="display: none;">
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_dept[]" value="sales">
+                            Sales
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_dept[]" value="support">
+                            Technical Support
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_dept[]" value="billing">
+                            Billing
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_dept[]" value="general">
+                            General Inquiry
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-toggle">
+                    Operators <span class="toggle-icon">▼</span>
+                </div>
+                <div class="filter-options" style="display: none;">
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_operator[]" value="john">
+                            John Smith
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_operator[]" value="sarah">
+                            Sarah Johnson
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_operator[]" value="mike">
+                            Mike Thompson
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_operator[]" value="laura">
+                            Laura Wilson
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-toggle">
+                    Status <span class="toggle-icon">▼</span>
+                </div>
+                <div class="filter-options" style="display: none;">
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_status[]" value="new">
+                            New
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_status[]" value="in_progress">
+                            In Progress
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_status[]" value="pending">
+                            Pending User Response
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_status[]" value="resolved">
+                            Resolved
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_status[]" value="closed">
+                            Closed
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-toggle">
+                    Priority <span class="toggle-icon">▼</span>
+                </div>
+                <div class="filter-options" style="display: none;">
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_priority[]" value="high">
+                            High
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_priority[]" value="medium">
+                            Medium
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_priority[]" value="low">
+                            Low
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-toggle">
+                    Category <span class="toggle-icon">▼</span>
+                </div>
+                <div class="filter-options" style="display: none;">
+                    <div class="checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_category[]" value="question">
+                            Question
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_category[]" value="feedback">
+                            Feedback
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_category[]" value="issue">
+                            Technical Issue
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_category[]" value="billing">
+                            Billing Issue
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="filter_category[]" value="other">
+                            Other
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit">Apply Filters</button>
             </div>
-            <button type="submit">Submit Enquiry</button>
-        </form>
+        </div>
     </div>
 </body>
 </html>
